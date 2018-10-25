@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer
-from Database.base import Base
+from modules.database.base import Base
 
 class Board(Base):
     __tablename__ = 'OT_BOARD_T'
