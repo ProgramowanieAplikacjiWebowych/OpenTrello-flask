@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pierwszy komponent w React.js</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+</head>
+  <script type="text/babel">
+
+
+  </script>
+
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+
+
+function App() {
+
+
+  return (
+    <div class="ui secondary  menu">
+      <a class="active item">
+        Dashboard
+      </a>
+
+      <a class="item">
+        New Board
+      </a>
+
+      <div class="right menu">
+        <div class="item">
+
+        </div>
+        <a class="ui item" href="/logout">
+          Logout
+        </a>
+      </div>
+
+    </div>
+  );
+}
+
+
+var zmienna = "Logout";
+    ReactDOM.render(
+  <App content="zmienna"/>,
+  document.getElementById('app')
+);
+  </script>
+</body>
+
+</html>
