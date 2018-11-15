@@ -1,5 +1,5 @@
 import os
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 from modules.app import app
 from modules import logger
 from modules.database.finders import board_finder
@@ -14,4 +14,4 @@ def boards(username):
     if request.method == 'GET':
         query = request.args
         data = board_finder.find_all_boards()
-        return jsonify(data), 200
+        return make_response(jsonify(data), 200)
