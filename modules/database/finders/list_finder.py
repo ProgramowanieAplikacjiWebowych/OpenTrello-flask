@@ -1,5 +1,5 @@
-from modules.database import List
-from modules.database import Session
+from modules.database.entities.ot_list_t import List
+from modules.database.base import Session
 
 
 def find_lists_by_board_id(board_id):

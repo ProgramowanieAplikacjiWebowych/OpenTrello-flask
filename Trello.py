@@ -37,6 +37,7 @@ def static_proxy(path):
 
 if __name__ == '__main__':
     LOG.info('running environment: %s', os.environ.get('ENV'))
+    os.environ['SECRET'] = 'c3c4HTQX6ETCdGrJ8dXS'
     app.config['DEBUG'] = os.environ.get('ENV') == 'development'
     app.run()
 

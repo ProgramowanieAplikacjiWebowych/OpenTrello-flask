@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer
-from modules.database.base import Base
+from modules.database.base import BaseModel
 
-class Board(Base):
+class Board(BaseModel):
     __tablename__ = 'OT_BOARD_T'
 
     id = Column(Integer, primary_key=True)
@@ -13,3 +13,10 @@ class Board(Base):
         self.name = name
         self.bg_color = bg_color
         self.active = active
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name' : self.name,
+            'bg_color' : self.bg_color,
+        }

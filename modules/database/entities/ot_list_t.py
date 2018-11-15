@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer
-from modules.database.base import Base
+from modules.database.base import BaseModel
 
-class List(Base):
+class List(BaseModel):
     __tablename__ = 'OT_LIST_T'
 
     id = Column(Integer, primary_key=True)
