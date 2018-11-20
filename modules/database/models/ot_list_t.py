@@ -12,3 +12,13 @@ class List(BaseModel):
     def __init__(self, name, board_id):
         self.name = name
         self.board_id = board_id
+
+    def __repr__(self):
+        return 'List name={} board_id={}>'.format(self.name, self.board_id)
+
+    def serialize(self):
+        return {
+            'id' : self.id,
+            'name' : self.name,
+            'board_id' : self.board_id,
+        }
