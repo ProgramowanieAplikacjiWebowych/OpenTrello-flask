@@ -13,5 +13,5 @@ LOG = logger.get_root_logger(
 def boards(username):
     if request.method == 'GET':
         query = request.args
-        data = board_finder.find_all_boards()
+        data = board_finder.find_boards_by_username(username)
         return make_response(jsonify(data), 200)

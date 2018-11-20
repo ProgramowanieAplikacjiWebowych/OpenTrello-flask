@@ -1,4 +1,4 @@
-from modules.database.entities.ot_list_t import List
+from modules.database.models.ot_list_t import List
 from modules.database.base import Session
 
 
