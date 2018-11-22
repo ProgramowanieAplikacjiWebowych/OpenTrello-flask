@@ -12,7 +12,7 @@ class Board(BaseModel):
     active = Column(Integer)
     user_id = Column(Integer)
 
-    def __init__(self, name, bg_color, active):
+    def __init__(self, name='', bg_color='', active=1):
         self.name = name
         self.bg_color = bg_color
         self.active = active
@@ -25,4 +25,17 @@ class Board(BaseModel):
             'id': self.id,
             'name': self.name,
             'bg_color': self.bg_color,
+            'active' : self.active
         }
+
+    @staticmethod
+    def deserialize(json_obj):
+        if type(json_obj) is type({}):
+            b = Board()
+            if 'name' in json_obj:
+                b.name = json_obj['name']
+            if 'bg_color' in json_obj:
+                b.bg_color = json_obj['bg_color']
+            if 'active' in json_obj:
+                b.active = json_obj['active']
+            return b
