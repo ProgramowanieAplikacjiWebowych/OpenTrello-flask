@@ -1,9 +1,9 @@
-import os
-import json
 import datetime
-from flask import Flask
-from flask_bcrypt import Bcrypt
+import json
+import os
+
 from bson.objectid import ObjectId
+from flask import Flask
 from flask_jwt_extended import JWTManager
 
 from modules.database.base import BaseModel
@@ -22,10 +22,10 @@ class JSONEncoder(json.JSONEncoder):
             return o.serialize()
         return json.JSONEncoder.default(self, o)
 
+
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = os.environ.get('SECRET')
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
-flask_bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 app.json_encoder = JSONEncoder
 
