@@ -14,7 +14,17 @@ def find_boards_by_username(username):
     session = Session()
     user = find_user_by_username(username)
     if user is not None:
-        return session.query(Board).filter_by(user_id=user.id).all()
+        result = session.query(Board).filter_by(user_id=user.id).all()
+        session.close()
+        return result
+    return None
+
+
+def find_boards_by_user_id(user_id):
+    session = Session()
+    result = session.query(Board).filter_by(user_id=user_id).all()
+    session.close()
+    return result
 
 
 def add_board(board):
