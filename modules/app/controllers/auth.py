@@ -23,7 +23,7 @@ def register_new_user():
 
     if username is None or password is None or email is None:
         status_code = 400
-        data = {'status': 'failed', 'message' : 'missing arguments'}
+        data = {'status': 'failed', 'message': 'Missing arguments'}
         return make_response(jsonify(data), status_code)
     if find_user_by_username(username) is not None:
         status_code = 409
@@ -35,7 +35,7 @@ def register_new_user():
         return make_response(jsonify(data), status_code)
     user = User(username, password, email)
     status_code, resource_id = add_user(user)
-    data = {'status': 'success', 'message': 'created', 'resource_id': resource_id}
+    data = {'status': 'success', 'message': 'Created resource_id {resource_id}'}
     return make_response(jsonify(data), status_code)
 
 
@@ -46,7 +46,7 @@ def login():
 
     if email is None or password is None:
         status_code = 400
-        data = {'status': 'failed', 'message': 'missing arguments'}
+        data = {'status': 'failed', 'message': 'Missing arguments'}
         return make_response(jsonify(data), status_code)
     user = find_user_by_email(email)
     if user is None:
@@ -66,12 +66,19 @@ def login():
 def auth_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        auth_token = request.headers.get('Authorization')
+
+        AUTHORIZATION_KEY = 'Authorization'
+        if not request.headers.has_key(AUTHORIZATION_KEY):
+            data = {'status': 'failed', 'message': 'Add authorization key to header'}
+            return make_response(jsonify(data), 401)
+
+        auth_token = request.headers.get(AUTHORIZATION_KEY)
         resp = decode_auth_token(auth_token)
+
         if not isinstance(resp, int):
             data = {'status': 'failed', 'message': resp}
             return make_response(jsonify(data), 401)
-        return f(*args, **kwargs)
+        return f(resp, **kwargs)
     return decorated_function
 
 

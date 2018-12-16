@@ -15,7 +15,7 @@ class User(base.BaseModel):
 
     def __init__(self, username, password, email, active=1):
         self.username = username
-        self.pwd_context.encrypt(password)
+        self.password = pwd_context.encrypt(password)
         self.email = email
         self.active = active
 

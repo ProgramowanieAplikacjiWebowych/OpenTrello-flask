@@ -25,12 +25,12 @@ class Board(BaseModel):
             'id': self.id,
             'name': self.name,
             'bg_color': self.bg_color,
-            'active' : self.active
+            'active': self.active
         }
 
     @staticmethod
     def deserialize(json_obj):
-        if type(json_obj) is type({}):
+        if isinstance(json_obj, dict):
             b = Board()
             if 'name' in json_obj:
                 b.name = json_obj['name']
