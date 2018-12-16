@@ -3,7 +3,7 @@ Flask==1.0.2
 Flask-MySQL==1.4.0
 Flask-SQLAlchemy==2.3.2
 gunicorn==19.9.0
-ItsDangerous==1.0.0
+ItsDangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.0
 PyMySQL==0.9.2
@@ -21,3 +21,5 @@ six==1.11.0
 Flask-Bcrypt==0.7.1
 bson==0.5.7
 Flask-JWT-Extended==3.13.1
+Flask-HTTPBasicAuth==1.0.1
+passlib=1.7.1
