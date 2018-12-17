@@ -1,10 +1,10 @@
 import sqlalchemy
 from passlib.apps import custom_app_context as pwd_context
 
-import modules.database.base as base
+from modules.database.base import BaseModel
 
 
-class User(base.BaseModel):
+class User(BaseModel):
     __tablename__ = 'OT_USER_T'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
