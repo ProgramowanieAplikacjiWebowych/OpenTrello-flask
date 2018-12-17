@@ -34,8 +34,8 @@ def register_new_user():
         data = {'status': 'failed', 'message': 'Email {email} already exist'}
         return make_response(jsonify(data), status_code)
     user = User(username, password, email)
-    status_code, resource_id = add_user(user)
-    data = {'status': 'success', 'message': 'Created resource_id {resource_id}'}
+    status_code, user_id = add_user(user)
+    data = {'status': 'success', 'message': 'Created new account', 'resource_id': user_id}
     return make_response(jsonify(data), status_code)
 
 

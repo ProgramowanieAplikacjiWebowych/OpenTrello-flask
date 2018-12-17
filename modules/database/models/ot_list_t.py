@@ -1,5 +1,7 @@
 from sqlalchemy import Column, String, Integer
+
 from modules.database.base import BaseModel
+
 
 class List(BaseModel):
     __tablename__ = 'OT_LIST_T'
