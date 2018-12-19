@@ -82,7 +82,7 @@ def auth_required(f):
     return decorated_function
 
 
-def encode_auth_token(user_id, expiration=600):
+def encode_auth_token(user_id, expiration=1000):
     s = itsdangerous.TimedJSONWebSignatureSerializer(app.config['JWT_SECRET_KEY'], expires_in=expiration)
     return s.dumps({'id': user_id})
 
