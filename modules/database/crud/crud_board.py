@@ -17,6 +17,7 @@ def find_boards_by_username(username):
         result = session.query(Board).filter_by(user_id=user.id, active=1).all()
         session.close()
         return result
+    session.close()
     return None
 
 
