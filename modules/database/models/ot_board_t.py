@@ -30,15 +30,16 @@ class Board(BaseModel):
 
     @staticmethod
     def deserialize(json_obj):
-        if isinstance(json_obj, dict):
-            try:
-                name = json_obj['name']
-                board = Board(name)
-            except Exception:
-                raise Exception('Deserialize exception')
+        if not isinstance(json_obj, dict):
+            raise Exception('Deserialize exception')
+        try:
+            name = json_obj['name']
+            board = Board(name)
+        except Exception:
+            raise Exception('Deserialize exception')
 
-            if 'bg_color' in json_obj:
-                board.bg_color = json_obj['bg_color']
-            if 'active' in json_obj:
-                board.active = json_obj['active']
-            return board
+        if 'bg_color' in json_obj:
+            board.bg_color = json_obj['bg_color']
+        if 'active' in json_obj:
+            board.active = json_obj['active']
+        return board

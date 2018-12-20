@@ -32,16 +32,17 @@ class Card(BaseModel):
 
     @staticmethod
     def deserialize(json_obj):
-        if isinstance(json_obj, dict):
-            try:
-                list_id = json_obj['list_id']
-                name = json_obj['name']
-                card = Card(list_id, name)
-            except Exception:
-                raise Exception('Deserialize exception')
+        if not isinstance(json_obj, dict):
+            raise Exception('Deserialize exception')
+        try:
+            list_id = json_obj['list_id']
+            name = json_obj['name']
+            card = Card(list_id, name)
+        except Exception:
+            raise Exception('Deserialize exception')
 
-            if 'description' in json_obj:
-                card.description = json_obj['description']
-            if 'date_to' in json_obj:
-                card.date_to = json_obj['date_to']
-            return card
+        if 'description' in json_obj:
+            card.description = json_obj['description']
+        if 'date_to' in json_obj:
+            card.date_to = json_obj['date_to']
+        return card
