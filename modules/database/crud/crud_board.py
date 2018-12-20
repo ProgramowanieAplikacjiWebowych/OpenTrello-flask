@@ -1,13 +1,39 @@
+from flask.json import jsonify
+import json
+
+from modules.database.crud.crud_list import find_lists_by_board_id
 from modules.database.base import Session
+from modules.database.crud.crud_card import find_cards_by_list_id
 from modules.database.crud.crud_user import find_user_by_username
+from modules.database.models.board_with_related_data import BoardWithRelatedData
+from modules.database.models.list_with_related_data import ListWihtRelatedData
 from modules.database.models.ot_board_t import Board
 
 
-def find_board_by_board_id(id):
+def find_board_with_related_data_by_board_id(id):
     session = Session()
-    result = session.query(Board).filter_by(id=id, active=1).first()
+    board = session.query(Board).filter_by(id=id, active=1).first()
+
+    lists = find_lists_by_board_id(id)
+
+    lists_with_cards = []
+    for li in lists:
+
+        cards = find_cards_by_list_id(li.id)
+        # cards = cards.serialize()
+        cardss = []
+        for card in cards:
+            di = card.serialize()
+            cardss.append(di)
+
+        lisss = ListWihtRelatedData(li.id, li.name, cardss)
+        lisss = lisss.to_json()
+        lists_with_cards.append(lisss)
+
+    all_data = BoardWithRelatedData(board.id, board.name, board.bg_color, lists_with_cards)
+
     session.close()
-    return result
+    return all_data
 
 
 def find_boards_by_username(username):

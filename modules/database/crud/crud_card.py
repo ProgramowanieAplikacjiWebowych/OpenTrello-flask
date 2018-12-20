@@ -2,6 +2,24 @@ from modules.database.base import Session
 from modules.database.models.ot_card_t import Card
 
 
+def find_card_by_card_id(card_id):
+    if card_id is None:
+        return
+    session = Session()
+    card = session.query(Card).filter_by(id=card_id, active=1).first()
+    session.close()
+    return card
+
+
+def find_cards_by_list_id(list_id):
+    if list_id is None:
+        return
+    session = Session()
+    cards = session.query(Card).filter_by(list_id=list_id, active=1).all()
+    session.close()
+    return cards
+
+
 def add_card(card):
     if not isinstance(card, Card):
         return

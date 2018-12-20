@@ -11,12 +11,14 @@ class Card(BaseModel):
     name = sqlalchemy.Column(sqlalchemy.String(128))
     date_to = sqlalchemy.Column(sqlalchemy.DateTime(), nullable=True)
     description = sqlalchemy.Column(sqlalchemy.String(8192))
+    active = sqlalchemy.Column(sqlalchemy.Integer)
 
-    def __init__(self, list_id, name, description='', date_to=None):
+    def __init__(self, list_id, name, description='', date_to=None, active=1):
         self.list_id = list_id
         self.name = name
         self.description = description
         self.date_to = date_to
+        self.active = active
 
     def __repr__(self):
         return '<Card: list_id={} name={} date_to={} description={}>'.format(self.list_id, self.name, self.date_to, self.description)

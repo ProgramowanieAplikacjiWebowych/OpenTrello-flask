@@ -27,6 +27,15 @@ def get_boards(user_id):
     return make_response(jsonify(data), status_code)
 
 
+@app.route('/<id>/board', methods=['GET'])
+@auth_required
+def get_board_with_data(user_id, id):
+    status_code = 200
+    data = crud_board.find_board_with_related_data_by_board_id(id)
+    LOG.debug(data)
+    return make_response(data.to_json(), status_code)
+
+
 @app.route('/board', methods=['POST'])
 @auth_required
 def create_board(user_id):
