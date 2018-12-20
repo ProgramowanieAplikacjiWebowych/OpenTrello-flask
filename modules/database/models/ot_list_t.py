@@ -10,7 +10,6 @@ class List(BaseModel):
     board_id = Column(Integer)
     name = Column(String(200))
 
-
     def __init__(self, name, board_id):
         self.name = name
         self.board_id = board_id
@@ -24,3 +23,15 @@ class List(BaseModel):
             'name' : self.name,
             'board_id' : self.board_id,
         }
+
+    @staticmethod
+    def deserialize(json_obj):
+        if not isinstance(json_obj, dict):
+            raise Exception('Deserialize exception')
+        try:
+            board_id = json_obj['board_id']
+            name = json_obj['name']
+            li = List(name, board_id)
+            return li
+        except Exception:
+            raise Exception('Deserialize exception')

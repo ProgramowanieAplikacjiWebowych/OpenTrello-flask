@@ -7,6 +7,8 @@ from modules.app import app
 from modules.app.controllers.auth import auth_required
 from modules.database import Board, add_board
 from modules.database.crud import crud_board
+from modules.database.crud.crud_activity import add_activity
+from modules.database.models.ot_activity_t import Activity
 
 ROOT_PATH = os.environ.get('ROOT_PATH')
 LOG = logger.get_root_logger(
@@ -34,4 +36,6 @@ def create_board(user_id):
     status_code, board_id = add_board(board)
     data = {'status': 'success', 'message': 'Created new board', 'resource_id': board_id}
     LOG.debug(board)
+    activity = Activity(user_id, "MODIFY_BOARD", payload)
+    add_activity(activity)
     return make_response(jsonify(data), status_code)
