@@ -5,7 +5,7 @@ from flask import request, jsonify, make_response
 from modules import logger
 from modules.app import app
 from modules.app.controllers.auth import auth_required
-from modules.database import Board, add_board
+from modules.database import Board, add_board, update_board
 from modules.database.crud import crud_board
 from modules.database.crud.crud_activity import add_activity
 from modules.database.models.ot_activity_t import Activity
@@ -35,6 +35,21 @@ def create_board(user_id):
     board.user_id = user_id
     status_code, board_id = add_board(board)
     data = {'status': 'success', 'message': 'Created new board', 'resource_id': board_id}
+    LOG.debug(board)
+    activity = Activity(user_id, "CREATE_BOARD", payload)
+    add_activity(activity)
+    return make_response(jsonify(data), status_code)
+
+
+@app.route('/<id>/board', methods=['PUT'])
+@auth_required
+def modify_board(user_id, id):
+    payload = request.get_json()
+    board = Board.deserialize(payload)
+    board.id = id
+    board.user_id = user_id
+    status_code, board_id = update_board(board)
+    data = {'status': 'success', 'message': 'Updated board', 'resource_id': board_id}
     LOG.debug(board)
     activity = Activity(user_id, "MODIFY_BOARD", payload)
     add_activity(activity)
